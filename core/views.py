@@ -18,15 +18,15 @@ def home(request):
             }
             ],
         }
+        print(userinput)
         response = requests.post(URL,json=payload).json()
-
         print(response)
 
         try:
             text_output = response["candidates"][0]["content"]["parts"][0]["text"]
             text_output = markdown.markdown(text_output)
         except KeyError:
-            text_output = "error or unexpected response formate."
+            text_output = f"Error: {response}"
 
             
     return render(request,'coree/index.html',{"answer":text_output})
